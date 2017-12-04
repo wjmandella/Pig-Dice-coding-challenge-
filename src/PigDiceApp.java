@@ -20,7 +20,7 @@ public class PigDiceApp {
 		int maxRoll = 0;
 		int totalNbrOfRolls = 0;
 
-		System.out.println("Welcome to Pig Dice!");
+		System.out.println("Welcome to Pig Dice!!!!!!!");
 		System.out.println("\nGAME RULES:");
 		String rules = "A player rolls a " +NUMBER_OF_SIDES+ "-sided die over and over again, until a 1 is rolled.\n"
 				+ "The player's score is the accumulation of all of the die rolls\n"
@@ -59,12 +59,13 @@ public class PigDiceApp {
 		getMostCommonRoll(die, totalNbrOfRolls);
 			if (gameNbr > 1) {
 				getHighestScore(scores);
-				getAverageScorePerGame(scores, totalNbrOfRolls, gameNbr);
+				getAverageScorePerGame(scores, gameNbr);
+				getAveragePerRoll(scores, totalNbrOfRolls, gameNbr);
 			}
 		double elapsedTime = (double) (System.nanoTime() - startTime) / 1000000000;
 		number.setMaximumFractionDigits(2);
 		System.out.println(
-				"\nEstimated elasped time to play all " + gameNbr + " games: " + number.format(elapsedTime) + " seconds");
+				"\nEstimated elapsed time to play all " + gameNbr + " games: " + number.format(elapsedTime) + " seconds");
 		System.out.println("\nOink!Oink!...or, rather,..Bye-bye!");
 	}
 
@@ -92,23 +93,38 @@ public class PigDiceApp {
 				indexOfMaxScore = scores.indexOf(score) + 1;
 			}
 		}
-		System.out.println("\nMAXIMUM SCORE:");
+		System.out.println("MAXIMUM SCORE:");
 		System.out.println("Your maximum score was " + maxScore + ", in game #" + indexOfMaxScore + ".");
 	}
-
-	public static void getAverageScorePerGame(ArrayList<Integer> scores, int totalNbrOfRolls, int nbrOfGames) {
+	
+	public static int getTotalOfAllScores (ArrayList<Integer> scores) {
 		int totalOfAllScores = 0;
 		for (int score : scores) {
 			totalOfAllScores += score;
 		}
+		return totalOfAllScores;
+	}
+
+	public static void getAverageScorePerGame(ArrayList<Integer> scores, int nbrOfGames) {
+		int totalOfAllScores = getTotalOfAllScores(scores);
+		
 		double avgOfAllScores = (double) totalOfAllScores / nbrOfGames;
-		double avgOfAllRolls = (double) totalOfAllScores / totalNbrOfRolls;
 		number.setMaximumFractionDigits(2);
 		number.setMinimumFractionDigits(1);
 		String avgScoreString = number.format(avgOfAllScores);
-		String avgRollString = number.format(avgOfAllRolls);
-		System.out.println("\nAVERAGE SCORE:");
+		System.out.println("AVERAGE SCORE:");
 		System.out.println("Your average score for all " + nbrOfGames + " games was " + avgScoreString + " per game.");
+
+	}
+	
+	public static void getAveragePerRoll(ArrayList<Integer> scores, int totalNbrOfRolls, int nbrOfGames) {
+		int totalOfAllScores = getTotalOfAllScores(scores);
+
+		double avgOfAllRolls = (double) totalOfAllScores / totalNbrOfRolls;
+		number.setMaximumFractionDigits(2);
+		number.setMinimumFractionDigits(1);
+		String avgRollString = number.format(avgOfAllRolls);
+		System.out.println("AVERAGE DIE VALUE PER ROLL:");
 		System.out.println("Your average die roll for all " + nbrOfGames + " games (" + totalNbrOfRolls
 				+ " rolls in all) was " + avgRollString + " per roll.");
 	}
