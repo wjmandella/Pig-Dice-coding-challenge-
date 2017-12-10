@@ -40,8 +40,7 @@ public class PigDiceApp {
 			while (dieRoll != 1) {
 				nbrOfRolls++;
 				totalNbrOfRolls++;
-				Random rand = new Random();
-				dieRoll = rand.nextInt(NUMBER_OF_SIDES) + 1;
+				dieRoll = rollDie();				
 				if (dieRoll > 1) {
 					score += dieRoll;
 				}
@@ -69,6 +68,12 @@ public class PigDiceApp {
 		System.out.println("\nOink!Oink!...or, rather,..Bye-bye!");
 	}
 
+	public static int rollDie() {
+		Random rand = new Random();
+		int dieRoll = rand.nextInt(NUMBER_OF_SIDES) + 1;
+		return dieRoll;
+	}
+	
 	public static void getMostCommonRoll(int[] die, int totNbrRolls) {
 		int maxRoll = 0;
 		int maxRollDieNbr = 0;
